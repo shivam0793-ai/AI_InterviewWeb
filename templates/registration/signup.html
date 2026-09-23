@@ -115,7 +115,7 @@
             {% endif %}
 
 
-            <form method="POST">
+            <form method="POST" action="{% url 'signup' %}">
 
                 {% csrf_token %}
 
