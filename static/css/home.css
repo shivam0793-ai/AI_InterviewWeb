@@ -1,7 +1,3 @@
-/* =====================================================
-   GLOBAL
-===================================================== */
-
 * {
     margin: 0;
     padding: 0;
@@ -53,7 +49,9 @@ a {
 }
 
 
-/* LOGO */
+/* =====================================================
+   LOGO
+===================================================== */
 
 .logo {
     display: flex;
@@ -75,7 +73,9 @@ a {
 }
 
 
-/* NAV LINKS */
+/* =====================================================
+   NAV LINKS
+===================================================== */
 
 .nav-links {
     display: flex;
@@ -94,7 +94,9 @@ a {
 }
 
 
-/* BUTTONS */
+/* =====================================================
+   LOGIN / SIGNUP BUTTONS
+===================================================== */
 
 .nav-buttons {
     display: flex;
@@ -136,6 +138,164 @@ a {
     background: #b94f6d;
 
     box-shadow: 0 8px 25px rgba(199, 91, 120, 0.3);
+}
+
+
+/* =====================================================
+   PROFILE MENU
+===================================================== */
+
+.profile-menu {
+    position: relative;
+}
+
+
+/* PROFILE BUTTON */
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 10px 15px;
+
+    border: 1px solid rgba(116, 75, 61, 0.15);
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.5);
+
+    color: #5f463e;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.profile-btn:hover {
+    background: #ffffff;
+
+    border-color: rgba(199, 91, 120, 0.3);
+
+    color: #b94f6d;
+
+    box-shadow: 0 5px 18px rgba(107, 69, 55, 0.08);
+}
+
+
+/* PROFILE ICON */
+
+.profile-icon {
+    font-size: 17px;
+}
+
+
+/* PROFILE ARROW */
+
+.profile-arrow {
+    font-size: 9px;
+
+    margin-left: 3px;
+
+    transition: 0.3s;
+}
+
+
+/* Rotate arrow when hovering */
+
+.profile-menu:hover .profile-arrow {
+    transform: rotate(180deg);
+}
+
+
+/* =====================================================
+   PROFILE DROPDOWN
+===================================================== */
+
+.profile-dropdown {
+    position: absolute;
+
+    right: 0;
+    top: 50px;
+
+    width: 190px;
+
+    padding: 8px;
+
+    background: rgba(255, 250, 247, 0.98);
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(116, 75, 61, 0.12);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 15px 40px rgba(87, 56, 45, 0.15);
+
+    display: none;
+
+    z-index: 1100;
+}
+
+
+/* SHOW DROPDOWN */
+
+.profile-menu:hover .profile-dropdown {
+    display: block;
+}
+
+
+/* DROPDOWN LINKS */
+
+.profile-dropdown a,
+.profile-dropdown button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #5f463e;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+/* DROPDOWN HOVER */
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+    background: #f9e5ea;
+
+    color: #b94f6d;
+}
+
+
+/* LOGOUT FORM */
+
+.profile-dropdown form {
+    margin: 0;
 }
 
 
@@ -1098,6 +1258,10 @@ footer p {
 }
 
 
+/* =====================================================
+   MOBILE
+===================================================== */
+
 @media (max-width: 650px) {
 
     .navbar {
@@ -1108,6 +1272,32 @@ footer p {
         font-size: 17px;
     }
 
+    .logo-icon {
+        font-size: 23px;
+    }
+
+
+    /* Mobile profile */
+
+    .profile-btn {
+        padding: 8px 10px;
+
+        font-size: 12px;
+    }
+
+    .profile-icon {
+        font-size: 15px;
+    }
+
+    .profile-dropdown {
+        width: 170px;
+
+        top: 45px;
+    }
+
+
+    /* Login / signup */
+
     .signup-btn {
         padding: 9px 13px;
     }
@@ -1115,6 +1305,9 @@ footer p {
     .login-btn {
         padding: 9px 10px;
     }
+
+
+    /* Hero */
 
     .hero {
         padding-left: 5%;
@@ -1147,15 +1340,24 @@ footer p {
         margin-left: -15%;
     }
 
+
+    /* Features */
+
     .feature-grid {
         grid-template-columns: 1fr;
     }
+
+
+    /* Steps */
 
     .steps {
         grid-template-columns: 1fr;
 
         gap: 40px;
     }
+
+
+    /* Headings */
 
     .section-heading h2 {
         font-size: 32px;

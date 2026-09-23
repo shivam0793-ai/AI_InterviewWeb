@@ -1,126 +1,294 @@
+```html
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AI Interviewer | Practice Smarter</title>
+
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
+
 <body>
+
+    <!-- ================= HEADER ================= -->
+
     <header class="navbar">
+
         <div class="logo">
             <span class="logo-icon">🤖</span>
-            <span>AI<span class="logo-highlight">Interviewer</span></span>
+
+            <span>
+                AI<span class="logo-highlight">Interviewer</span>
+            </span>
         </div>
+
 
         <nav class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#features">Features</a>
-            <a href="#how-it-works">How It Works</a>
-        </nav>
 
-        {% if user.is_authenticated %}
-            <a href="#" class="start-btn large">
-            Start Your Interview
-            <span>→</span>
+            <a href="#home">
+                Home
             </a>
 
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#how-it-works">
+                How It Works
+            </a>
+
+        </nav>
+
+
+        {% if user.is_authenticated %}
+
+
+            <div class="profile-menu">
+
+                <button class="profile-btn">
+
+                    <span class="profile-icon">
+                        👤
+                    </span>
+
+                    {{ user.username }}
+
+                    <span class="profile-arrow">
+                        ▼
+                    </span>
+
+                </button>
+
+
+                <!-- PROFILE DROPDOWN -->
+
+                <div class="profile-dropdown">
+
+                    <!-- Future Profile Page -->
+
+                    <a href="#">
+                        👤 My Profile
+                    </a>
+
+
+                    <!-- Logout -->
+
+                    <form method="POST" action="{% url 'logout' %}">
+
+                        {% csrf_token %}
+
+                        <button type="submit">
+                            🚪 Logout
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
         {% else %}
-        <div class="nav-buttons">
-            <a href="{% url 'login' %}" class="login-btn">Login</a>
-            <a href="{% url 'signup' %}" class="signup-btn">Sign Up</a>
-        </div>
+
+            <!-- LOGIN / SIGNUP -->
+
+            <div class="nav-buttons">
+
+                <a href="{% url 'login' %}" class="login-btn">
+                    Login
+                </a>
+
+                <a href="{% url 'signup' %}" class="signup-btn">
+                    Sign Up
+                </a>
+
+            </div>
+
         {% endif %}
+
     </header>
 
+
+
+    <!-- ================= MAIN ================= -->
+
     <main id="home">
+
+
+        <!-- ================= HERO ================= -->
+
         <section class="hero">
 
             <div class="hero-content">
+
                 <div class="small-badge">
+
                     <span class="status-dot"></span>
+
                     AI-Powered Interview Practice
+
                 </div>
+
+
                 <h1>
+
                     Your Next Interview
-                    <span>Starts Here.</span>
+
+                    <span>
+                        Starts Here.
+                    </span>
+
                 </h1>
 
+
                 <p class="hero-description">
+
                     Practice real technical interviews with an AI interviewer.
+
                     Get asked questions, submit your answers, receive instant
+
                     feedback, and discover where you can improve.
+
                 </p>
+
 
                 <div class="hero-buttons">
 
                     <a href="#" class="start-btn">
+
                         Start Interview
-                        <span>→</span>
+
+                        <span>
+                            →
+                        </span>
+
                     </a>
+
+
                     <a href="#how-it-works" class="learn-btn">
+
                         How it works
+
                     </a>
+
                 </div>
+
 
                 <div class="hero-stats">
+
                     <div>
-                        <strong>AI</strong>
-                        <span>Powered</span>
+
+                        <strong>
+                            AI
+                        </strong>
+
+                        <span>
+                            Powered
+                        </span>
+
                     </div>
+
 
                     <div class="stat-line"></div>
 
+
                     <div>
-                        <strong>24/7</strong>
-                        <span>Practice</span>
+
+                        <strong>
+                            24/7
+                        </strong>
+
+                        <span>
+                            Practice
+                        </span>
+
                     </div>
+
 
                     <div class="stat-line"></div>
 
+
                     <div>
-                        <strong>Instant</strong>
-                        <span>Feedback</span>
+
+                        <strong>
+                            Instant
+                        </strong>
+
+                        <span>
+                            Feedback
+                        </span>
+
                     </div>
+
                 </div>
+
             </div>
 
 
+
+            <!-- ================= AI VISUAL ================= -->
+
             <div class="ai-visual">
+
                 <div class="glow glow-one"></div>
+
                 <div class="glow glow-two"></div>
 
+
                 <div class="orbit orbit-one"></div>
+
                 <div class="orbit orbit-two"></div>
+
                 <div class="orbit orbit-three"></div>
+
 
                 <div class="ai-core">
 
                     <div class="core-ring"></div>
 
+
                     <div class="robot">
                         🤖
                     </div>
 
+
                     <div class="pulse pulse-one"></div>
+
                     <div class="pulse pulse-two"></div>
 
                 </div>
 
-                <!-- Floating cards -->
+
+
+                <!-- Floating Question Card -->
 
                 <div class="floating-card card-question">
 
-                    <div class="card-icon">?</div>
+                    <div class="card-icon">
+                        ?
+                    </div>
+
 
                     <div>
-                        <small>AI Question</small>
-                        <strong>Ready for your challenge?</strong>
+
+                        <small>
+                            AI Question
+                        </small>
+
+                        <strong>
+                            Ready for your challenge?
+                        </strong>
+
                     </div>
 
                 </div>
 
+
+
+                <!-- Floating Score Card -->
 
                 <div class="floating-card card-score">
 
@@ -128,21 +296,42 @@
                         92%
                     </div>
 
+
                     <div>
-                        <small>Interview Score</small>
-                        <strong>Great performance!</strong>
+
+                        <small>
+                            Interview Score
+                        </small>
+
+                        <strong>
+                            Great performance!
+                        </strong>
+
                     </div>
 
                 </div>
 
 
+
+                <!-- Floating Feedback Card -->
+
                 <div class="floating-card card-feedback">
 
-                    <span class="check">✓</span>
+                    <span class="check">
+                        ✓
+                    </span>
+
 
                     <div>
-                        <small>AI Feedback</small>
-                        <strong>Answer analyzed</strong>
+
+                        <small>
+                            AI Feedback
+                        </small>
+
+                        <strong>
+                            Answer analyzed
+                        </strong>
+
                     </div>
 
                 </div>
@@ -153,78 +342,135 @@
 
 
 
+        <!-- ================= FEATURES ================= -->
+
         <section class="features" id="features">
+
             <div class="section-heading">
 
                 <div class="section-label">
+
                     WHY AI INTERVIEWER
+
                 </div>
+
+
                 <h2>
+
                     Practice like it's the
-                    <span>real interview.</span>
+
+                    <span>
+                        real interview.
+                    </span>
+
                 </h2>
 
+
                 <p>
+
                     Build confidence by practicing technical interviews
+
                     whenever you want.
+
                 </p>
 
             </div>
 
 
+
             <div class="feature-grid">
 
+
                 <div class="feature-card">
 
-                    <div class="feature-icon">🧠</div>
+                    <div class="feature-icon">
+                        🧠
+                    </div>
 
-                    <h3>AI Questions</h3>
+
+                    <h3>
+                        AI Questions
+                    </h3>
+
 
                     <p>
+
                         Get dynamically generated interview questions
+
                         based on your role and technology.
+
                     </p>
 
                 </div>
 
 
+
                 <div class="feature-card">
 
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">
+                        ⚡
+                    </div>
 
-                    <h3>Instant Evaluation</h3>
+
+                    <h3>
+                        Instant Evaluation
+                    </h3>
+
 
                     <p>
+
                         Submit your answer and receive AI-powered
+
                         feedback immediately.
+
                     </p>
 
                 </div>
 
 
+
                 <div class="feature-card">
 
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">
+                        📊
+                    </div>
 
-                    <h3>Performance Analysis</h3>
+
+                    <h3>
+                        Performance Analysis
+                    </h3>
+
 
                     <p>
+
                         Understand your strengths and identify
+
                         the topics that need more practice.
+
                     </p>
 
                 </div>
 
 
+
                 <div class="feature-card">
 
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">
+                        🎯
+                    </div>
 
-                    <h3>Personalized Practice</h3>
+
+                    <h3>
+                        Personalized Practice
+                    </h3>
+
 
                     <p>
+
                         Choose your role, technology, difficulty,
+
                         and number of questions.
+
                     </p>
 
                 </div>
@@ -234,62 +480,103 @@
         </section>
 
 
+
+        <!-- ================= HOW IT WORKS ================= -->
 
         <section class="how-it-works" id="how-it-works">
 
             <div class="section-heading">
 
                 <div class="section-label">
+
                     SIMPLE PROCESS
+
                 </div>
 
+
                 <h2>
+
                     From practice to
-                    <span>confidence.</span>
+
+                    <span>
+                        confidence.
+                    </span>
+
                 </h2>
 
             </div>
 
 
+
             <div class="steps">
 
+
                 <div class="step">
 
-                    <div class="step-number">01</div>
+                    <div class="step-number">
+                        01
+                    </div>
 
-                    <h3>Choose Your Interview</h3>
+
+                    <h3>
+                        Choose Your Interview
+                    </h3>
+
 
                     <p>
+
                         Select your role, technologies,
+
                         experience level and difficulty.
+
                     </p>
 
                 </div>
 
 
+
                 <div class="step">
 
-                    <div class="step-number">02</div>
+                    <div class="step-number">
+                        02
+                    </div>
 
-                    <h3>Talk to the AI</h3>
+
+                    <h3>
+                        Talk to the AI
+                    </h3>
+
 
                     <p>
+
                         Answer realistic technical questions
+
                         generated specifically for your interview.
+
                     </p>
 
                 </div>
 
 
+
                 <div class="step">
 
-                    <div class="step-number">03</div>
+                    <div class="step-number">
+                        03
+                    </div>
 
-                    <h3>Get Your Report</h3>
+
+                    <h3>
+                        Get Your Report
+                    </h3>
+
 
                     <p>
+
                         Receive scores, feedback and areas
+
                         that you should improve.
+
                     </p>
 
                 </div>
@@ -300,24 +587,39 @@
 
 
 
+        <!-- ================= FINAL CTA ================= -->
+
         <section class="final-cta">
 
             <div class="cta-content">
 
-                <div class="cta-icon">🤖</div>
+                <div class="cta-icon">
+                    🤖
+                </div>
+
 
                 <h2>
                     Ready to test yourself?
                 </h2>
 
+
                 <p>
+
                     Start your first AI-powered interview
+
                     and see where you stand.
+
                 </p>
 
+
                 <a href="#" class="start-btn large">
+
                     Start Your Interview
-                    <span>→</span>
+
+                    <span>
+                        →
+                    </span>
+
                 </a>
 
             </div>
@@ -328,18 +630,30 @@
 
 
 
+    <!-- ================= FOOTER ================= -->
+
     <footer>
 
         <div class="footer-logo">
-            🤖 AI<span>Interviewer</span>
+
+            🤖 AI<span>
+                Interviewer
+            </span>
+
         </div>
 
+
         <p>
+
             Practice smarter. Interview better.
+
         </p>
 
+
         <p class="copyright">
+
             © 2026 AI Interviewer. All rights reserved.
+
         </p>
 
     </footer>
