@@ -1,0 +1,308 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up | AI Interviewer</title>
+
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">AI</div>
+            <span>AI Interviewer</span>
+        </div>
+
+        <a href="{% url 'home' %}" class="back-home">
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+    <!-- Signup Section -->
+    <main class="signup-container">
+
+        <!-- Left Side -->
+        <section class="signup-intro">
+
+            <div class="intro-content">
+
+                <span class="small-label">
+                    🚀 START YOUR JOURNEY
+                </span>
+
+                <h1>
+                    Build Your
+                    <span>Interview Confidence.</span>
+                </h1>
+
+                <p>
+                    Create your account and start practicing
+                    AI-powered technical interviews designed
+                    around your skills and career goals.
+                </p>
+
+                <!-- AI Circle -->
+                <div class="ai-visual">
+
+                    <div class="orbit orbit-1"></div>
+                    <div class="orbit orbit-2"></div>
+
+                    <div class="ai-circle">
+                        <div class="ai-face">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-one">
+                        🤖 AI Questions
+                    </div>
+
+                    <div class="floating-card card-two">
+                        ✓ Instant Feedback
+                    </div>
+
+                    <div class="floating-card card-three">
+                        📊 Track Progress
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Signup Form -->
+        <section class="signup-box">
+
+            <div class="form-header">
+
+                <span class="form-icon">✨</span>
+
+                <h2>Create Account</h2>
+
+                <p>
+                    Start your AI interview journey today.
+                </p>
+
+            </div>
+
+
+            <!-- Django Messages -->
+            {% if messages %}
+                <div class="messages">
+
+                    {% for message in messages %}
+
+                        <div class="message">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- Username -->
+                <div class="form-group">
+
+                    <label for="id_username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        id="id_username"
+                        placeholder="Enter your username"
+                        value="{{ form.username.value|default:'' }}"
+                        required
+                    >
+
+                    {% if form.username.errors %}
+                        <div class="error">
+                            {{ form.username.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Email -->
+                <div class="form-group">
+
+                    <label for="id_email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        id="id_email"
+                        placeholder="Enter your email"
+                        value="{{ form.email.value|default:'' }}"
+                        required
+                    >
+
+                    {% if form.email.errors %}
+                        <div class="error">
+                            {{ form.email.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label for="id_password1">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            name="password1"
+                            id="id_password1"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            onclick="togglePassword('id_password1', this)"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                    {% if form.password1.errors %}
+                        <div class="error">
+                            {{ form.password1.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+
+                    <label for="id_password2">
+                        Confirm Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            name="password2"
+                            id="id_password2"
+                            placeholder="Confirm your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            onclick="togglePassword('id_password2', this)"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                    {% if form.password2.errors %}
+                        <div class="error">
+                            {{ form.password2.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Terms -->
+                <div class="terms">
+
+                    <input type="checkbox" id="terms" required>
+
+                    <label for="terms">
+                        I agree to the
+                        <a href="#">Terms & Conditions</a>
+                    </label>
+
+                </div>
+
+
+                <!-- Submit -->
+                <button type="submit" class="signup-button">
+
+                    Create My Account
+                    <span>→</span>
+
+                </button>
+
+            </form>
+
+
+            <!-- Login -->
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        function togglePassword(inputId, button) {
+
+            const input = document.getElementById(inputId);
+
+            if (input.type === "password") {
+
+                input.type = "text";
+                button.textContent = "Hide";
+
+            } else {
+
+                input.type = "password";
+                button.textContent = "Show";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
