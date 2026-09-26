@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import interview
+from . import views
 
-urlpatterns=[
-    path('interview/',interview,name='interview')
+urlpatterns = [
+    path("", views.interview_setup, name="interview"),
+    path("<int:interview_id>/chat/", views.chat_page, name="chat_page"),
 ]

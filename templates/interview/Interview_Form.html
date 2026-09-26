@@ -1,19 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+    <title>Start Interview</title>
+    <link rel="stylesheet" href="{% static 'css/interview_setup.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
 
+<body>
+<div class="background-circle c1"></div>
+<div class="background-circle c2"></div>
+<div class="setup-card">
+    <div class="logo">
+        ✦
+    </div>
+    <h1>Start AI Interview</h1>
+    <p>Choose your interview preferences and let AI become your interviewer.</p>
     <form method="POST">
         {% csrf_token %}
-
         {{ form.as_p }}
-
-        <button type="submit">Submit</button>
+        <button type="submit">
+            Start Interview →
+        </button>
     </form>
-
+</div>
 </body>
 </html>

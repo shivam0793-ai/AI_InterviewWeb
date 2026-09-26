@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ interview.title }}</title>
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="layout">
+    <aside class="rail">
+        <div class="logo">✦</div>
+        <div class="rail-icons">
+            <i class="fa-regular fa-comment"></i>
+            <i class="fa-regular fa-folder"></i>
+            <i class="fa-regular fa-bookmark"></i>
+        </div>
+        <div class="profile">
+            {{ request.user.username|first|upper }}
+        </div>
+    </aside>
+
+    <aside class="sidebar">
+        <a href="{% url 'interview' %}" class="new-chat">
+            <i class="fa-solid fa-plus"></i>
+            New Interview
+        </a>
+
+        <div class="history-title">
+            Recent
+        </div>
+
+        <div class="history">
+
+            {% for item in sidebar %}
+
+            <a href="{% url 'chat_page' item.id %}"
+
+            class="history-item {% if item.id == interview.id %}active{% endif %}">
+
+                <strong>{{ item.title }}</strong>
+
+                <small>{{ item.created_at|date:"d M Y" }}</small>
+
+            </a>
+
+            {% endfor %}
+
+        </div>
+
+    </aside>
+
+    <!-- Chat -->
+
+    <main class="chat">
+
+        <div class="chat-header">
+
+            <button>
+                <i class="fa-solid fa-share-nodes"></i>
+            </button>
+
+            <button>
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+
+        </div>
+
+        {% if messages|length <= 1 %}
+
+        <div class="hero">
+
+            <div class="hero-logo">✦</div>
+
+            <h1>Hello, {{ request.user.username }}</h1>
+
+            <p>Ready for your AI Interview?</p>
+
+        </div>
+
+        {% endif %}
+
+        <section class="messages" id="messages">
+
+            {% for msg in messages %}
+
+            <div class="msg {% if msg.role == 'user' %}user{% else %}assistant{% endif %}">
+
+                {% if msg.role == "assistant" %}
+                    <div class="avatar ai">✦</div>
+                {% endif %}
+
+                <div class="text">
+                    {{ msg.content|linebreaksbr }}
+                </div>
+
+                {% if msg.role == "user" %}
+                    <div class="avatar user">👤</div>
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </section>
+
+        <div class="composer">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <textarea
+                    name="message"
+                    rows="1"
+                    placeholder="Type your answer..."
+                    required></textarea>
+
+                <div class="bottom">
+
+                    <div class="left">
+
+                        <button type="button">
+                            <i class="fa-solid fa-paperclip"></i>
+                        </button>
+
+                        <button type="button">
+                            <i class="fa-solid fa-microphone"></i>
+                        </button>
+
+                    </div>
+
+                    <button class="send" type="submit">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+
+const messages=document.getElementById("messages");
+messages.scrollTop=messages.scrollHeight;
+
+const textarea=document.querySelector("textarea");
+
+textarea.addEventListener("input",function(){
+
+this.style.height="auto";
+
+this.style.height=this.scrollHeight+"px";
+
+});
+
+</script>
+
+</body>
+</html>
