@@ -1,86 +1,116 @@
 {% load static %}
+{% load markdown_extras %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ interview.title }}</title>
-<link rel="stylesheet" href="{% static 'css/chat.css' %}">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ interview.title }}</title>
+
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
 
-<div class="layout">
-    <aside class="rail">
-        <div class="logo">✦</div>
-        <div class="rail-icons">
-            <i class="fa-regular fa-comment"></i>
-            <i class="fa-regular fa-folder"></i>
-            <i class="fa-regular fa-bookmark"></i>
-        </div>
-        <div class="profile">
-            {{ request.user.username|first|upper }}
-        </div>
-    </aside>
+<div class="bg one"></div>
+<div class="bg two"></div>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
-        <a href="{% url 'interview' %}" class="new-chat">
-            <i class="fa-solid fa-plus"></i>
-            New Interview
-        </a>
 
-        <div class="history-title">
-            Recent
-        </div>
+        <div class="top">
 
-        <div class="history">
+            <div class="brand">
 
-            {% for item in sidebar %}
+                <div class="logo">🦊</div>
 
-            <a href="{% url 'chat_page' item.id %}"
+                <span>Interview AI</span>
 
-            class="history-item {% if item.id == interview.id %}active{% endif %}">
+            </div>
 
-                <strong>{{ item.title }}</strong>
-
-                <small>{{ item.created_at|date:"d M Y" }}</small>
-
+            <a href="{% url 'home' %}" class="menu home">
+                <i class="fa-solid fa-house"></i>
+                Home
             </a>
 
-            {% endfor %}
+            <a href="{% url 'interview' %}" class="menu new">
+                <i class="fa-solid fa-plus"></i>
+                New Interview
+            </a>
+
+            <div class="title">Recent Interviews</div>
+
+            <div class="history">
+
+                {% for item in sidebar %}
+
+                <a href="{% url 'chat_page' item.id %}"
+                   class="history-item {% if item.id == interview.id %}active{% endif %}">
+
+                    <div class="history-name">{{ item.title }}</div>
+
+                    <div class="history-date">{{ item.created_at|date:"d M Y" }}</div>
+
+                </a>
+
+                {% empty %}
+
+                <p class="empty">No interviews yet.</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <div class="profile">
+
+            <div class="avatar">{{ request.user.username|first|upper }}</div>
+
+            <div>
+
+                <strong>{{ request.user.username }}</strong>
+
+                <small>AI Interview</small>
+
+            </div>
 
         </div>
 
     </aside>
 
-    <!-- Chat -->
+    <!-- MAIN CHAT -->
 
     <main class="chat">
 
-        <div class="chat-header">
+        <header class="header">
 
-            <button>
+            <div>
+
+                <h3>{{ interview.title }}</h3>
+
+                <p>AI Interview Assistant</p>
+
+            </div>
+
+            <button class="icon">
                 <i class="fa-solid fa-share-nodes"></i>
             </button>
 
-            <button>
-                <i class="fa-solid fa-ellipsis"></i>
-            </button>
-
-        </div>
+        </header>
 
         {% if messages|length <= 1 %}
 
         <div class="hero">
 
-            <div class="hero-logo">✦</div>
+            <h1>What should we work on?</h1>
 
-            <h1>Hello, {{ request.user.username }}</h1>
-
-            <p>Ready for your AI Interview?</p>
+            <p>Practice interviews naturally with AI.</p>
 
         </div>
 
@@ -90,18 +120,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
             {% for msg in messages %}
 
-            <div class="msg {% if msg.role == 'user' %}user{% else %}assistant{% endif %}">
+            <div class="message {% if msg.role == 'user' %}user{% else %}assistant{% endif %}">
 
                 {% if msg.role == "assistant" %}
-                    <div class="avatar ai">✦</div>
+                    <div class="bubble-avatar ai">✦</div>
                 {% endif %}
 
-                <div class="text">
-                    {{ msg.content|linebreaksbr }}
+                <div class="bubble">
+                    {{ msg.content|markdown|safe }}
                 </div>
 
                 {% if msg.role == "user" %}
-                    <div class="avatar user">👤</div>
+                    <div class="bubble-avatar me">
+                        {{ request.user.username|first|upper }}
+                    </div>
                 {% endif %}
 
             </div>
@@ -110,21 +142,24 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
         </section>
 
+        <!-- INPUT -->
+
         <div class="composer">
 
-            <form method="POST">
+            <form method="POST" id="chatForm">
 
                 {% csrf_token %}
 
                 <textarea
+                    id="messageBox"
                     name="message"
                     rows="1"
-                    placeholder="Type your answer..."
+                    placeholder="Ask anything..."
                     required></textarea>
 
                 <div class="bottom">
 
-                    <div class="left">
+                    <div class="tools">
 
                         <button type="button">
                             <i class="fa-solid fa-paperclip"></i>
@@ -137,9 +172,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
                     </div>
 
                     <button class="send" type="submit">
-
                         <i class="fa-solid fa-arrow-up"></i>
-
                     </button>
 
                 </div>
@@ -157,13 +190,24 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 const messages=document.getElementById("messages");
 messages.scrollTop=messages.scrollHeight;
 
-const textarea=document.querySelector("textarea");
+const textarea=document.getElementById("messageBox");
+const form=document.getElementById("chatForm");
 
 textarea.addEventListener("input",function(){
 
 this.style.height="auto";
-
 this.style.height=this.scrollHeight+"px";
+
+});
+
+textarea.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"&&!e.shiftKey){
+
+e.preventDefault();
+form.submit();
+
+}
 
 });
 
