@@ -22,5 +22,14 @@ urlpatterns = [
     path('',include('dashboard.urls')),
     path("accounts/",include('accounts.urls')),
     path("singup/",include('accounts.urls')),
+<<<<<<< HEAD
+<<<<<<< HEAD
     path("interview/", include("interviews.urls")),]
+=======
+    path("interview/",include('interviews.urls')),
+]
+>>>>>>> 1e4d6ea (form and ai_service created)
+=======
+    path("interview/", include("interviews.urls")),]
+>>>>>>> 24e5edc (ai-intreget)
 
