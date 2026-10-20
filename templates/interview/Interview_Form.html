@@ -1,70 +1,144 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 {% load static %}
-=======
->>>>>>> 1e4d6ea (form and ai_service created)
-=======
-{% load static %}
->>>>>>> 24e5edc (ai-intreget)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <title>Start Interview</title>
+
+    <title>Start Interview | AI Interviewer</title>
+
     <link rel="stylesheet" href="{% static 'css/interview_setup.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
 </head>
 
 <body>
-<div class="background-circle c1"></div>
-<div class="background-circle c2"></div>
-<div class="setup-card">
-    <div class="logo">
-        ✦
-    </div>
-    <h1>Start AI Interview</h1>
-    <p>Choose your interview preferences and let AI become your interviewer.</p>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">
-            Start Interview →
-        </button>
-    </form>
-</div>
-=======
-    <title>Form</title>
-=======
-    <title>Start Interview</title>
-    <link rel="stylesheet" href="{% static 'css/interview_setup.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
->>>>>>> 24e5edc (ai-intreget)
-</head>
+    <main class="page-wrapper">
 
-<body>
-<div class="background-circle c1"></div>
-<div class="background-circle c2"></div>
-<div class="setup-card">
-    <div class="logo">
-        ✦
-    </div>
-    <h1>Start AI Interview</h1>
-    <p>Choose your interview preferences and let AI become your interviewer.</p>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">
-            Start Interview →
-        </button>
-    </form>
-<<<<<<< HEAD
+        <nav class="topbar">
+            <a href="/" class="brand">
+                <span class="brand-icon">✦</span>
+                <span>AI Interviewer</span>
+            </a>
 
->>>>>>> 1e4d6ea (form and ai_service created)
-=======
-</div>
->>>>>>> 24e5edc (ai-intreget)
+            <span class="secure-label">
+                <span class="status-dot"></span>
+                AI-powered practice
+            </span>
+        </nav>
+
+        <section class="setup-layout">
+
+            <div class="intro-section">
+                <span class="eyebrow">
+                    <span>✦</span> YOUR PERSONAL AI COACH
+                </span>
+
+                <h1>Practice smarter.<br>
+                    <span>Interview better.</span>
+                </h1>
+
+                <p class="intro-description">
+                    Build confidence, improve your answers, and get ready
+                    for your next big opportunity with a personalized
+                    AI-powered interview.
+                </p>
+
+                <div class="benefits">
+                    <div class="benefit">
+                        <span class="benefit-icon">✓</span>
+                        <div>
+                            <h3>Personalized questions</h3>
+                            <p>Practice questions tailored to your role.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit">
+                        <span class="benefit-icon">↗</span>
+                        <div>
+                            <h3>Improve your skills</h3>
+                            <p>Build confidence with every session.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit">
+                        <span class="benefit-icon">◎</span>
+                        <div>
+                            <h3>Learn at your pace</h3>
+                            <p>Practice whenever you're ready.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quote-card">
+                    <span class="quote-mark">“</span>
+                    <p>Every great interview starts with good practice.</p>
+                    <span class="quote-caption">YOUR NEXT OPPORTUNITY STARTS HERE</span>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="card-heading">
+                    <div class="card-icon">✦</div>
+                    <span class="step-label">LET'S GET STARTED</span>
+                    <h2>Set up your interview</h2>
+                    <p>Choose your preferences to personalize your session.</p>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="form-errors">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}
+                                    <span class="required">*</span>
+                                {% endif %}
+                            </label>
+
+                            {{ field }}
+
+                            {% if field.help_text %}
+                                <small class="help-text">
+                                    {{ field.help_text }}
+                                </small>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                                <small class="field-error">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="start-button">
+                        <span>Start my interview</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+
+                    <p class="privacy-note">
+                        <span>🔒</span>
+                        Your practice session starts when you submit.
+                    </p>
+                </form>
+            </div>
+
+        </section>
+
+        <footer class="page-footer">
+            <span>AI Interviewer</span>
+            <span>Practice with purpose. Grow with confidence.</span>
+        </footer>
+
+    </main>
 </body>
 </html>
+```

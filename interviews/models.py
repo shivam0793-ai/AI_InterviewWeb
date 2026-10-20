@@ -21,7 +21,6 @@ class interview(models.Model):
         return f"{self.user.username} - {self.title}"
 
 
-
 class Chatmessage(models.Model):
     ROLE_CHOICES=[
         ('user','user'),
