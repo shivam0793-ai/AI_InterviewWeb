@@ -30,5 +30,4 @@ def chat_with_ai(history,user_msg):
         temperature=0.7,
         max_completion_tokens=500
     )
-
     return respone.choices[0].message.content

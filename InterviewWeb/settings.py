@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'accounts',
     'API',
     'dashboard',
-    'interviews'
+    'interviews',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -78,15 +80,11 @@ WSGI_APPLICATION = 'InterviewWeb.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':'APIWEBDB',
-        'PASSWORD':'Pass@123',
-        'USER':'root'
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -135,3 +133,54 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'shivamsurlkar40@gmail.com'
 EMAIL_HOST_PASSWORD = 'koat cpsb xqsv abqv'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':['rest_framework.authentication.TokenAuthentication',],
+    'DEFAULT_PERMISSION_CLASSES':['rest_framework.permissions.IsAuthenticated',]
+    ,
+}
+
+
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = os.getenv(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-local-development-only"
+)
+
+DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
+
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv(
+        "DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost"
+    ).split(",")
+    if host.strip()
+]
+
+# Keep your existing INSTALLED_APPS, MIDDLEWARE,
+# TEMPLATES, ROOT_URLCONF, and other settings.
+
+if os.getenv("DJANGO_ENV") == "production":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ["DB_NAME"],
+            "USER": os.environ["DB_USER"],
+            "PASSWORD": os.environ["DB_PASSWORD"],
+            "HOST": os.environ["DB_HOST"],
+            "PORT": os.getenv("DB_PORT", "3306"),
+            "OPTIONS": {"charset": "utf8mb4"},
+        }
+    }
+else:
+    # Keep your existing local DATABASES configuration here.
+    pass
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"

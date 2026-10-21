@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Token | Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/token_result.css' %}">
+</head>
+<body>
+
+    <main class="page-container">
+        <section class="result-card">
+            <div class="icon-circle">
+                {% if token_key %}
+                    &#10003;
+                {% else %}
+                   !
+                {% endif %}
+            </div>
+            <h1>
+                {% if token_key %}
+                    Token Generated
+                {% else %}
+                    API Token Status
+                {% endif %}
+            </h1>
+            <p class="subtitle">
+                {% if token_key %}
+                    Your authentication token is ready to use.
+                {% else %}
+                    Check the message below for the result.
+                {% endif %}
+            </p>
+
+            {% if message %}
+                <div class="message {% if token_key %}success{% else %}error{% endif %}">
+                    {{ message }}
+                </div>
+            {% endif %}
+
+            {% if token_key %}
+                <div class="token-section">
+                    <label for="tokenValue">Your API Token</label>
+
+                    <div class="token-wrapper">
+                        <textarea id="tokenValue" readonly rows="3">{{ token_key }}</textarea>
+
+                        <button type="button" class="copy-btn"
+                                onclick="copyToken()">
+                            Copy Token
+                        </button>
+                    </div>
+
+                    <p class="hint">
+                        Keep this token private. Anyone who obtains it may
+                        be able to access your protected APIs.
+                    </p>
+                </div>
+            {% endif %}
+
+            <a href="{% url 'createtoken' %}" class="back-link">
+                ← Back to Login
+            </a>
+
+        </section>
+
+        <footer>
+            Secure API Authentication
+        </footer>
+    </main>
+
+    <script>
+        function copyToken() {
+            const token = document.getElementById("tokenValue");
+
+            navigator.clipboard.writeText(token.value)
+                .then(() => {
+                    const button = document.querySelector(".copy-btn");
+                    button.textContent = "Copied!";
+
+                    setTimeout(() => {
+                        button.textContent = "Copy Token";
+                    }, 2000);
+                })
+                .catch(() => {
+                    token.select();
+                    document.execCommand("copy");
+                });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,26 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import InterviewForm
+from .forms import interview_form
 from .ai_service import chat_with_ai
-from .models import interview as interview,Chatmessage
+from .models import interview,Chatmessage
 
 @login_required
 def interview_setup(request):
-
     if request.method == "POST":
-
-        form = InterviewForm(request.POST)
+        form = interview_form(request.POST)
 
         if form.is_valid():
-
             interview_obj = form.save(commit=False)
-
             interview_obj.user = request.user
-
             interview_obj.title = f"{interview_obj.technology} Interview"
-
             interview_obj.save()
-
             first_question = chat_with_ai(
                 [],
                 f"Start a {interview_obj.difficulty} {interview_obj.technology} interview for a {interview_obj.experience} candidate. Ask only the first interview question."
@@ -35,7 +28,7 @@ def interview_setup(request):
             return redirect("chat_page", interview_id=interview_obj.id)
 
     else:
-        form = InterviewForm()
+        form = interview_form()
 
     return render(
         request,

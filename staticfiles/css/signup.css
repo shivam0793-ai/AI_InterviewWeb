@@ -1,0 +1,538 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fffaf7;
+    color: #402b25;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    height: 75px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f1dfd4;
+    background: #fffaf7;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #c75b78;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+.back-home {
+    text-decoration: none;
+    color: #76564c;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.back-home:hover {
+    color: #c75b78;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.signup-container {
+    min-height: calc(100vh - 75px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding: 60px 8%;
+}
+
+
+/* =========================
+   LEFT CONTENT
+========================= */
+
+.signup-intro {
+    display: flex;
+    justify-content: center;
+}
+
+.intro-content {
+    max-width: 560px;
+}
+
+.small-label {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #f7e4df;
+    color: #a95849;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.intro-content h1 {
+    margin-top: 22px;
+    font-size: 55px;
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.intro-content h1 span {
+    display: block;
+    color: #c75b78;
+}
+
+.intro-content p {
+    margin-top: 22px;
+    max-width: 500px;
+    color: #76564c;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   AI VISUAL
+========================= */
+
+.ai-visual {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    margin: 30px auto 0;
+}
+
+.ai-circle {
+    position: absolute;
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        #c75b78,
+        #a95849
+    );
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(169, 88, 73, 0.25);
+    animation: floatAI 4s ease-in-out infinite;
+}
+
+.ai-face {
+    width: 85px;
+    height: 65px;
+    border-radius: 25px;
+    background: #fffaf7;
+    position: relative;
+}
+
+.ai-face span {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #c75b78;
+    border-radius: 50%;
+    top: 22px;
+}
+
+.ai-face span:first-child {
+    left: 20px;
+}
+
+.ai-face span:last-child {
+    right: 20px;
+}
+
+
+/* Orbit */
+
+.orbit {
+    position: absolute;
+    border: 1px solid #e5bdb4;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-1 {
+    width: 230px;
+    height: 230px;
+    animation: rotate 10s linear infinite;
+}
+
+.orbit-2 {
+    width: 320px;
+    height: 180px;
+    animation: rotateReverse 12s linear infinite;
+}
+
+
+/* Floating cards */
+
+.floating-card {
+    position: absolute;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: white;
+    border: 1px solid #f1dfd4;
+    box-shadow: 0 10px 30px rgba(64, 43, 37, 0.08);
+    font-size: 12px;
+    font-weight: 700;
+    color: #76564c;
+    animation: floatCard 3s ease-in-out infinite;
+}
+
+.card-one {
+    top: 20px;
+    left: 10px;
+}
+
+.card-two {
+    right: 0;
+    top: 80px;
+    animation-delay: 1s;
+}
+
+.card-three {
+    bottom: 10px;
+    left: 50px;
+    animation-delay: 2s;
+}
+
+
+/* =========================
+   FORM BOX
+========================= */
+
+.signup-box {
+    width: 100%;
+    max-width: 480px;
+    padding: 38px;
+    background: white;
+    border: 1px solid #f1dfd4;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(64, 43, 37, 0.08);
+}
+
+.form-header {
+    margin-bottom: 28px;
+}
+
+.form-icon {
+    font-size: 25px;
+}
+
+.form-header h2 {
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.form-header p {
+    margin-top: 7px;
+    color: #8a6c62;
+    font-size: 14px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.form-group input {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    border: 1px solid #ead8d2;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    color: #402b25;
+    background: #fffdfc;
+}
+
+.form-group input:focus {
+    border-color: #c75b78;
+    box-shadow: 0 0 0 3px rgba(199, 91, 120, 0.1);
+}
+
+
+/* Password */
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 65px;
+}
+
+.show-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #c75b78;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+
+/* =========================
+   ERRORS
+========================= */
+
+.error {
+    margin-top: 6px;
+    color: #c0392b;
+    font-size: 12px;
+}
+
+.error ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+
+/* =========================
+   TERMS
+========================= */
+
+.terms {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 15px 0 20px;
+    font-size: 12px;
+    color: #76564c;
+}
+
+.terms input {
+    accent-color: #c75b78;
+}
+
+.terms a {
+    color: #c75b78;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.signup-button {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 13px;
+    background: #c75b78;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.signup-button span {
+    margin-left: 8px;
+    font-size: 18px;
+}
+
+.signup-button:hover {
+    background: #a95849;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(169, 88, 73, 0.2);
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-link {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 13px;
+    color: #76564c;
+}
+
+.login-link a {
+    color: #c75b78;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 10px;
+    background: #f7e4df;
+    color: #76564c;
+    font-size: 13px;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes floatAI {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) translateY(-12px);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes rotateReverse {
+    from {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+}
+
+@keyframes floatCard {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .signup-container {
+        grid-template-columns: 1fr;
+        padding: 40px 6%;
+    }
+
+    .signup-intro {
+        text-align: center;
+    }
+
+    .intro-content h1 {
+        font-size: 42px;
+    }
+
+    .intro-content p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ai-visual {
+        margin-bottom: 20px;
+    }
+
+    .signup-box {
+        margin: auto;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .signup-container {
+        padding: 30px 5%;
+    }
+
+    .signup-box {
+        padding: 25px 20px;
+        border-radius: 18px;
+    }
+
+    .intro-content h1 {
+        font-size: 35px;
+    }
+
+    .ai-visual {
+        transform: scale(0.8);
+        margin-left: -40px;
+    }
+
+}
